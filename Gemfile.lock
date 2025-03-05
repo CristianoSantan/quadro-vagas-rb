@@ -389,7 +389,7 @@ DEPENDENCIES
   solid_cache
   solid_queue
   stimulus-rails
-  tailwindcss-rails
+  tailwindcss-rails (~> 4.1)
   thruster
   turbo-rails
   tzinfo-data
