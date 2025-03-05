@@ -25,7 +25,7 @@ require 'capybara/cuprite'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Rails.root.glob('spec/support/**/*.rb').sort_by(&:to_s).each { |f| require f }
+Rails.root.glob('spec/support/**/*.rb').sort_by(&:to_s).each { |f| require f }
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
@@ -39,10 +39,10 @@ RSpec.configure do |config|
     driven_by :rack_test
   end
 
-  config.before(:each, type: :system) do
+  config.before(:each, type: :system, js: true) do
     driven_by(:cuprite, screen_size: [ 1440, 810 ], options: {
       js_errors: false,
-      headless: %w[0],
+      headless: true,
       process_timeout: 15,
       timeout: 10,
       browser_options: { "no-sandbox" => nil }

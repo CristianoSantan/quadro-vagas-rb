@@ -4,9 +4,8 @@ export default class extends Controller {
   static targets = ["result"]
   connect() {
     console.log("Conectado via Stimulus")
-  }
-
-  helloWorld(){
-    this.resultTarget.textContent = "Olá mundo via StimulusJS"
+    setInterval(() => {
+      this.resultTarget.textContent = 'Hello World! com Rails'
+    }, 2000);
   }
 }
