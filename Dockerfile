@@ -2,15 +2,10 @@
 FROM ruby:3.4.2 AS base
 
 RUN apt-get update -qq && apt-get install -y \
-    postgresql-client \
     chromium \
-    libpq-dev \
-    libnss3 \
-    libgconf-2-4 \
-    libxss1 \
-    fonts-liberation \
-    libappindicator3-1 \
-    xdg-utils
+    chromium-driver \
+    build-essential \
+    libpq-dev 
 
 WORKDIR /app
 COPY Gemfile Gemfile.lock ./
