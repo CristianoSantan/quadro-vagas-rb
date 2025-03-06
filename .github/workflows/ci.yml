@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RAILS_ENV: test
-      DATABASE_URL: "postgres://postgres:postgres@localhost:5432/myapp_test"
+      DATABASE_URL: "postgres://postgres:postgres@localhost:5432/quadro_vagas_rb_test"
     services:
       postgres:
         image: postgres:15
