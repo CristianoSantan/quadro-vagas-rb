@@ -7,5 +7,6 @@ FactoryBot.define do
     salary_period { "Monthly" }
     job_type { create(:job_type) }
     description { "Something" }
+    status { :posted }
   end
 end

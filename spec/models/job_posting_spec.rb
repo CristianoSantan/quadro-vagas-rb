@@ -10,5 +10,6 @@ RSpec.describe JobPosting, type: :model do
     it { should belong_to :company_profile }
     it { should belong_to :job_type }
     it { should validate_presence_of(:description) }
+    it { define_enum_for(:status) }
   end
 end
