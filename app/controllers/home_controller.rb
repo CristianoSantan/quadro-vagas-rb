@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
   allow_unauthenticated_access
   def index
+    return @job_postings = JobPosting.all if Current.user.present?
     @job_postings = JobPosting.where(status: JobPosting.statuses[:posted])
   end
 
