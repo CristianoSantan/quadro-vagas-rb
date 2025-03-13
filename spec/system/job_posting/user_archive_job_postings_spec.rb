@@ -5,7 +5,6 @@ describe "User archive a job posting", type: :system do
     first_user = create(:user, email_address: 'first@email.com')
     first_company = create(:company_profile, user: first_user, contact_email: 'first@company.com')
     rails_job = create(:job_posting, title: "Ruby on Rails Dev Jr.", description: "Rails dev Jr", status: :posted, company_profile: first_company)
-
     second_user = create(:user, email_address: 'second@email.com')
     second_company = create(:company_profile, user: second_user, contact_email: 'second@company.com')
     django_job = create(:job_posting, title: "Django Dev Jr.", description: "Python dev Jr", status: :posted, company_profile: second_company)
@@ -29,7 +28,6 @@ describe "User archive a job posting", type: :system do
     first_user = create(:user, email_address: 'first@email.com')
     first_company = create(:company_profile, user: first_user, contact_email: 'first@company.com')
     rails_job = create(:job_posting, title: "Ruby on Rails Dev Jr.", description: "Rails dev Jr", status: :posted, company_profile: first_company)
-
     second_user = create(:user, email_address: 'second@email.com')
     second_company = create(:company_profile, user: second_user, contact_email: 'second@company.com')
     django_job = create(:job_posting, title: "Django Dev Jr.", description: "Python dev Jr", status: :posted, company_profile: second_company)
