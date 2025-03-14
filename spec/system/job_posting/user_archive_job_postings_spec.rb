@@ -16,7 +16,7 @@ describe "User archive a job posting", type: :system do
 
     job = JobPosting.last
     expect(job.status).to eq 'archived'
-    expect(page).to have_content "Vaga arquivada com sucesso"
+    expect(page).to have_content "Anúncio arquivado com sucesso"
     expect(page).to have_button "Postar"
     expect(page).not_to have_button "Arquivar"
   end
@@ -49,8 +49,38 @@ describe "User archive a job posting", type: :system do
 
     job = JobPosting.last
     expect(job.status).to eq 'posted'
-    expect(page).to have_content "Vaga publicada com sucesso"
+    expect(page).to have_content "Anúncio publicado com sucesso"
     expect(page).to have_button "Arquivar"
     expect(page).not_to have_button "Postar"
+  end
+
+  it "shows error message when archiving fails" do
+    user = create(:user, email_address: 'user@email.com')
+    company = create(:company_profile, user: user, contact_email: 'user@company.com')
+    job = create(:job_posting, title: "Test Job", status: :posted, company_profile: company)
+    allow_any_instance_of(JobPosting).to receive(:archived!).and_return(false)
+
+    login_as user
+    visit root_path
+    click_link 'Test Job'
+    click_button 'Arquivar'
+
+    expect(page).to have_content "Erro ao tentar arquivar anúncio da vaga"
+    expect(job.reload.status).not_to eq 'archived'
+  end
+
+  it "shows error message when posting fails" do
+    user = create(:user, email_address: 'user@email.com')
+    company = create(:company_profile, user: user, contact_email: 'user@company.com')
+    job = create(:job_posting, title: "Test Job", status: :archived, company_profile: company)
+    allow_any_instance_of(JobPosting).to receive(:posted!).and_return(false)
+
+    login_as user
+    visit root_path
+    click_link 'Test Job'
+    click_button 'Postar'
+
+    expect(page).to have_content "Erro ao tentar publicar anúncio da vaga"
+    expect(job.reload.status).not_to eq 'posted'
   end
 end

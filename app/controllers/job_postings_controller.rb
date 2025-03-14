@@ -1,6 +1,7 @@
 class JobPostingsController < ApplicationController
   allow_unauthenticated_access only: [ :show ]
   before_action :set_job_posting, only: [ :show, :archive, :post ]
+  before_action :check_user, only: [ :archive, :post ]
 
   def show; end
 
@@ -20,27 +21,33 @@ class JobPostingsController < ApplicationController
   end
 
   def archive
-    if @job_posting.company_profile.user == Current.user
-      @job_posting.archived!
-      redirect_to @job_posting, notice: "Vaga arquivada com sucesso."
+    if @job_posting.archived!
+      flash[:notice] = t(".success")
     else
-      redirect_to @job_posting, alert: "Você não tem permissão para arquivar esta vaga."
+      flash[:alert] = t(".failure")
     end
+    redirect_to @job_posting
   end
 
   def post
-    if @job_posting.company_profile.user == Current.user
-      @job_posting.posted!
-      redirect_to @job_posting, notice: "Vaga publicada com sucesso."
+    if @job_posting.posted!
+      flash[:notice] = t(".success")
     else
-      redirect_to @job_posting, alert: "Você não tem permissão para publicar esta vaga."
+      flash[:alert] = t(".failure")
     end
+    redirect_to @job_posting
   end
 
   private
 
   def set_job_posting
     @job_posting = JobPosting.find(params[:id])
+  end
+
+  def check_user
+    unless @job_posting.company_profile.user == Current.user
+      redirect_to @job_posting, alert: t(".negated_access")
+    end
   end
 
   def job_posting_params

@@ -17,7 +17,7 @@ describe "User see job postings", type: :system do
     expect(page).to have_selector("#job_posting_#{node_job.id}")
     within("#job_posting_#{node_job.id}") do
       expect(page).to have_content node_job.title
-      expect(page).to have_content 'archived'
+      expect(page).to have_content 'Arquivado'
     end
     expect(page).to have_content django_job.title
   end
