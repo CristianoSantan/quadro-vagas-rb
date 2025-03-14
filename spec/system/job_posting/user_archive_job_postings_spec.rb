@@ -2,12 +2,13 @@ require 'rails_helper'
 
 describe "User archive a job posting", type: :system do
   it "successfuly" do
+    experience_level_jr = ExperienceLevel.create(name: "Junior")
     first_user = create(:user, email_address: 'first@email.com')
     first_company = create(:company_profile, user: first_user, contact_email: 'first@company.com')
-    rails_job = create(:job_posting, title: "Ruby on Rails Dev Jr.", status: :posted, company_profile: first_company)
+    rails_job = create(:job_posting, title: "Ruby on Rails Dev Jr.", status: :posted, company_profile: first_company, experience_level: experience_level_jr)
     second_user = create(:user, email_address: 'second@email.com')
     second_company = create(:company_profile, user: second_user, contact_email: 'second@company.com')
-    django_job = create(:job_posting, title: "Django Dev Jr.", status: :posted, company_profile: second_company)
+    django_job = create(:job_posting, title: "Django Dev Jr.", status: :posted, company_profile: second_company, experience_level: experience_level_jr)
 
     login_as second_user
     visit root_path
@@ -22,12 +23,13 @@ describe "User archive a job posting", type: :system do
   end
 
   it "and is not the owner" do
+    experience_level_jr = ExperienceLevel.create(name: "Junior")
     first_user = create(:user, email_address: 'first@email.com')
     first_company = create(:company_profile, user: first_user, contact_email: 'first@company.com')
-    rails_job = create(:job_posting, title: "Ruby on Rails Dev Jr.", status: :posted, company_profile: first_company)
+    rails_job = create(:job_posting, title: "Ruby on Rails Dev Jr.", status: :posted, company_profile: first_company, experience_level: experience_level_jr)
     second_user = create(:user, email_address: 'second@email.com')
     second_company = create(:company_profile, user: second_user, contact_email: 'second@company.com')
-    django_job = create(:job_posting, title: "Django Dev Jr.", status: :posted, company_profile: second_company)
+    django_job = create(:job_posting, title: "Django Dev Jr.", status: :posted, company_profile: second_company, experience_level: experience_level_jr)
 
     login_as second_user
     visit root_path
