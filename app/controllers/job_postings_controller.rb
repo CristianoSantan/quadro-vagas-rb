@@ -2,7 +2,7 @@ class JobPostingsController < ApplicationController
   allow_unauthenticated_access only: [ :show ]
   before_action :set_job_posting, only: [ :show, :archive, :post ]
   before_action :check_user, only: [ :archive, :post ]
-  before_action :check_inactive_job_posting, only: %i[ show ]
+  before_action :check_inactive_company_profile, only: %i[ show ]
 
   def show; end
 
@@ -55,7 +55,7 @@ class JobPostingsController < ApplicationController
     params.require(:job_posting).permit(:title, :salary, :salary_currency, :salary_period, :work_arrangement, :job_location, :job_type_id, :experience_level_id, :description)
   end
 
-  def check_inactive_job_posting
-    redirect_to root_path if @job_posting.status == "inactive" && !admin?
+  def check_inactive_company_profile
+    redirect_to root_path if @job_posting.company_profile.status == "inactive" && !admin?
   end
 end

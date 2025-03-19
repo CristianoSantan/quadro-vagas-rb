@@ -20,14 +20,15 @@ RSpec.describe JobPosting, type: :model do
       user = create(:user, status: :active)
       company = create(:company_profile, user: user)
       job_posting = create(:job_posting, company_profile: company)
-      expect(job_posting.status).to eq("active")
+      expect(job_posting.status).to eq("posted")
     end
 
     it "should be inactive if company is inactive" do
-      user = create(:user, status: :inactive)
+      user = create(:user, status: :active)
       company = create(:company_profile, user: user)
       job_posting = create(:job_posting, company_profile: company)
-      expect(job_posting.status).to eq("inactive")
+      user.deactivate!
+      expect(job_posting.reload.status).to eq("archived")
     end
   end
 end
