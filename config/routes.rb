@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resource :session
   resources :passwords, param: :token
-  resource :registration, only: [ :new, :create ]
+  resource :registration, only: %i[ new create ]
 
   get "home/index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -30,6 +30,7 @@ Rails.application.routes.draw do
 
   resources :company_profiles, only: [ :show, :new, :create ]
   resources :job_postings, only: %i[ show new create ] do
+    resources :tags, only: %i[ new create ]
     post :archive, on: :member
     post :post, on: :member
   end

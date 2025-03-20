@@ -3,12 +3,14 @@ en:
     show:
       archive: "Archive"
       posted: "Post"
+      back: "Back"
     new:
       title: "Post a Job"
       submit: "Submit"
       select:
         work_arrangement: "Select work arrangement"
         salary_period: "Select salary period"
+      tag: "Tags"
     create:
       failure: "Error trying to create job ad"
       success: "Ad created successfully"
